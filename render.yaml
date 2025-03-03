@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: tv-show-tracker
+    env: docker
+    buildCommand: "./mvnw clean package -DskipTests"
+    startCommand: "java -jar target/*.jar"
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: tv_show_tracker_db
+          property: connectionString
+      - key: OMDB_API_KEY
+        sync: false
+
+databases:
+  - name: tv_show_tracker_db
+    databaseName: tv_show_tracker
+    plan: free 

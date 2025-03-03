@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - TV Show Tracker</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #6b46c1;
+            --primary-dark: #553c9a;
+            --secondary-color: #2d3748;
+            --accent-color: #9f7aea;
+            --background-color: #1a202c;
+            --text-color: #e2e8f0;
+            --card-bg: #2d3748;
+            --error-color: #e53e3e;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .welcome-title {
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .welcome-subtitle {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-item {
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateX(10px);
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-right: 1rem;
+        }
+
+        .feature-text {
+            color: var(--text-color);
+        }
+
+        .auth-container {
+            max-width: 400px;
+            margin: 2rem auto;
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .auth-title {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--secondary-color);
+            border: 1px solid var(--primary-color);
+            border-radius: 6px;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(159, 122, 234, 0.2);
+        }
+
+        .form-control::placeholder {
+            color: #718096;
+        }
+
+        .form-control.is-invalid {
+            border-color: var(--error-color);
+        }
+
+        .invalid-feedback {
+            color: var(--error-color);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .alert {
+            background-color: var(--card-bg);
+            border: 1px solid var(--primary-color);
+            color: var(--text-color);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-danger {
+            border-color: var(--error-color);
+            background-color: rgba(229, 62, 62, 0.1);
+        }
+
+        .alert-success {
+            border-color: #48bb78;
+            background-color: rgba(72, 187, 120, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .auth-links {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .auth-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .auth-links a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .bottom-links {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .bottom-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .bottom-links a:hover {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .welcome-title {
+                font-size: 2rem;
+            }
+
+            .welcome-subtitle {
+                font-size: 1rem;
+            }
+
+            .auth-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="welcome-title">Welcome to TV Show Tracker</h1>
+        <p class="welcome-subtitle">Your personal TV show companion. Track, rate, and discuss your favorite shows all in one place.</p>
+        
+        <div class="features-list">
+            <div class="feature-item">
+                <i class="bi bi-collection-play feature-icon"></i>
+                <span class="feature-text">Browse thousands of TV shows</span>
+            </div>
+            <div class="feature-item">
+                <i class="bi bi-star feature-icon"></i>
+                <span class="feature-text">Rate and review shows</span>
+            </div>
+            <div class="feature-item">
+                <i class="bi bi-list-check feature-icon"></i>
+                <span class="feature-text">Create your watchlist</span>
+            </div>
+            <div class="feature-item">
+                <i class="bi bi-chat-dots feature-icon"></i>
+                <span class="feature-text">Join discussions with other fans</span>
+            </div>
+        </div>
+
+        <div class="auth-container">
+            <h2 class="auth-title">Create Your Account</h2>
+            
+            <div th:if="${error}" class="alert alert-danger">
+                <i class="bi bi-exclamation-triangle"></i>
+                <span th:text="${error}">Error message</span>
+            </div>
+            
+            <form th:action="@{/register}" method="post" th:object="${user}">
+                <div class="form-group">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" th:classappend="${#fields.hasErrors('username')} ? 'is-invalid'" 
+                           id="username" name="username" th:field="*{username}" required 
+                           placeholder="Choose a username">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+                        Username error
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'"
+                           id="email" name="email" th:field="*{email}" required 
+                           placeholder="Enter your email">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                        Email error
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'"
+                           id="password" name="password" th:field="*{password}" required 
+                           placeholder="Create a password">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                        Password error
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-person-plus"></i> Register
+                </button>
+            </form>
+            
+            <div class="auth-links">
+                <p>Already have an account? <a href="/login">Login here</a></p>
+            </div>
+        </div>
+
+        <div class="bottom-links">
+            <a href="/shows">Browse Shows</a>
+            <a href="/login">Login</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
